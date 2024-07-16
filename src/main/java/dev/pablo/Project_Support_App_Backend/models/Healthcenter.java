@@ -1,5 +1,7 @@
 package dev.pablo.Project_Support_App_Backend.models;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -71,4 +73,31 @@ public class Healthcenter {
         this.description = description;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Healthcenter that = (Healthcenter) o;
+        return Objects.equals(id, that.id) && 
+               Objects.equals(name, that.name) && 
+               Objects.equals(date, that.date) && 
+               Objects.equals(subject, that.subject) && 
+               Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, date, subject, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Healthcenter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", subject='" + subject + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
