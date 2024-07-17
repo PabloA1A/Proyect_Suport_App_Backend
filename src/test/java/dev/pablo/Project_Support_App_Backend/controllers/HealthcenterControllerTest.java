@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -90,6 +91,26 @@ public class HealthcenterControllerTest {
         }
 
         @Test
+        @DisplayName("Should return a healthcenter by ID")
+        void testGetHealthcenterById() throws Exception {
+
+                Healthcenter pablo = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+
+                when(service.getById(1L)).thenReturn(pablo);
+                MockHttpServletResponse response = mockMvc.perform(get("/healthcenters/1")
+                                .accept(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isOk())
+                                .andReturn()
+                                .getResponse();
+
+                System.out.println(response.getContentAsString());
+
+                assertThat(response.getStatus(), equalTo(200));
+                assertThat(response.getContentAsString(), containsString("Pablo"));
+                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(pablo)));
+        }
+
+        @Test
         @DisplayName("Should update an existing healthcenter")
         void testUpdate() throws Exception {
 
@@ -110,5 +131,21 @@ public class HealthcenterControllerTest {
                 assertThat(response.getStatus(), equalTo(200));
                 assertThat(response.getContentAsString(), containsString("Pablo Updated"));
                 assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(updatedHealthcenter)));
+        }
+
+        @Test
+        @DisplayName("Should delete an existing healthcenter")
+        void testDelete() throws Exception {
+
+                when(service.delete(1L)).thenReturn(true);
+                MockHttpServletResponse response = mockMvc.perform(delete("/healthcenters/1")
+                                .accept(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isNoContent())
+                                .andReturn()
+                                .getResponse();
+
+                System.out.println(response.getContentAsString());
+
+                assertThat(response.getStatus(), equalTo(204));
         }
 }
