@@ -10,14 +10,27 @@ import dev.pablo.Project_Support_App_Backend.repositories.HealthcenterRepository
 @Service
 public class HealthcenterService {
 
-    HealthcenterRepository repository;
+    private HealthcenterRepository repository;
 
     public HealthcenterService(HealthcenterRepository repository) {
         this.repository = repository;
     }
 
     public List<Healthcenter> getAll() {
-        List<Healthcenter> healthcenters = repository.findAll();
-        return healthcenters;
+        return repository.findAll();
+    }
+
+    public Healthcenter create(Healthcenter healthcenter) {
+        return repository.save(healthcenter);
+    }
+
+    public Healthcenter update(Long id, Healthcenter healthcenter) {
+        return repository.findById(id).map(existingHealthcenter -> {
+            existingHealthcenter.setName(healthcenter.getName());
+            existingHealthcenter.setDate(healthcenter.getDate());
+            existingHealthcenter.setSubject(healthcenter.getSubject());
+            existingHealthcenter.setDescription(healthcenter.getDescription());
+            return repository.save(existingHealthcenter);
+        }).orElse(null);
     }
 }

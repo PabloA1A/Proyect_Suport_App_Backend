@@ -69,9 +69,12 @@ public class HealthcenterTest {
 
     @Test
     void testEqualsAndHashCode() {
-        Healthcenter healthcenter1 = new Healthcenter(1L, "Test Name", "2024/01/01", "Test Subject", "Test Description");
-        Healthcenter healthcenter2 = new Healthcenter(1L, "Test Name", "2024/01/01", "Test Subject", "Test Description");
-        Healthcenter healthcenter3 = new Healthcenter(2L, "Test Name", "2024/02/02", "Other Subject", "Other Description");
+        Healthcenter healthcenter1 = new Healthcenter(1L, "Test Name", "2024/01/01", "Test Subject",
+                "Test Description");
+        Healthcenter healthcenter2 = new Healthcenter(1L, "Test Name", "2024/01/01", "Test Subject",
+                "Test Description");
+        Healthcenter healthcenter3 = new Healthcenter(2L, "Test Name", "2024/02/02", "Other Subject",
+                "Other Description");
 
         assertEquals(healthcenter1, healthcenter2);
         assertNotEquals(healthcenter1, healthcenter3);
@@ -83,5 +86,5 @@ public class HealthcenterTest {
     void testToString() {
         String expected = "Healthcenter{id=1, name='Test Name', date='2024/01/01', subject='Test Subject', description='Test Description'}";
         assertThat(healthcenter.toString(), is(expected));
-    }  
+    }
 }
