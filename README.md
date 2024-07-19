@@ -61,3 +61,6 @@ https://github.com/PabloA1A/Project_Support_App_Frontend
 ```sh
 Pablo Abad
 ```
+
+## My diagram with https://app.diagrams.net/:
+![My diagram](<Diagrama  Project_Support_App_Frontend.png>)
