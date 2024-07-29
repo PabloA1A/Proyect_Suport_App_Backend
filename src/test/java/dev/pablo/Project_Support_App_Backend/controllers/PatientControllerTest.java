@@ -24,34 +24,34 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dev.pablo.Project_Support_App_Backend.models.Healthcenter;
-import dev.pablo.Project_Support_App_Backend.services.HealthcenterService;
+import dev.pablo.Project_Support_App_Backend.models.Patient;
+import dev.pablo.Project_Support_App_Backend.services.PatientService;
 
-@WebMvcTest(HealthcenterController.class)
+@WebMvcTest(PatientController.class)
 // @AutoConfigureMockMvc(addFilters = false) to disable security
-public class HealthcenterControllerTest {
+public class PatientControllerTest {
 
         @Autowired
         MockMvc mockMvc;
 
         @MockBean
-        HealthcenterService service;
+        PatientService service;
 
         @Autowired
         ObjectMapper mapper;
 
         @Test
-        @DisplayName("Should return a list of healthcenter")
+        @DisplayName("Should return a list of patients")
         void testIndex() throws Exception {
 
-                List<Healthcenter> healthcenters = new ArrayList<>();
-                Healthcenter pablo = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
-                Healthcenter maria = new Healthcenter(2L, "Maria", "2024/02/02", "Test Subject", "Test Description");
-                healthcenters.add(pablo);
-                healthcenters.add(maria);
+                List<Patient> patients = new ArrayList<>();
+                Patient pablo = new Patient(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+                Patient maria = new Patient(2L, "Maria", "2024/02/02", "Test Subject", "Test Description");
+                patients.add(pablo);
+                patients.add(maria);
 
-                when(service.getAll()).thenReturn(healthcenters);
-                MockHttpServletResponse response = mockMvc.perform(get("/healthcenters")
+                when(service.getAll()).thenReturn(patients);
+                MockHttpServletResponse response = mockMvc.perform(get("/patients")
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk())
                                 .andReturn()
@@ -62,22 +62,20 @@ public class HealthcenterControllerTest {
                 assertThat(response.getStatus(), equalTo(200));
                 assertThat(response.getContentAsString(), containsString("Pablo"));
                 assertThat(response.getContentAsString(), containsString("Maria"));
-                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(healthcenters)));
+                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(patients)));
         }
 
         @Test
-        @DisplayName("Should create a new healthcenter")
+        @DisplayName("Should create a new patient")
         void testCreate() throws Exception {
 
-                Healthcenter newHealthcenter = new Healthcenter(null, "Andres", "2024/03/03", "Test Subject",
-                                "Test Description");
-                Healthcenter createdHealthcenter = new Healthcenter(3L, "Andres", "2024/03/03", "Test Subject",
-                                "Test Description");
+                Patient newPatient = new Patient(null, "Andres", "2024/03/03", "Test Subject", "Test Description");
+                Patient createdPatient = new Patient(3L, "Andres", "2024/03/03", "Test Subject", "Test Description");
 
-                when(service.create(newHealthcenter)).thenReturn(createdHealthcenter);
-                MockHttpServletResponse response = mockMvc.perform(post("/healthcenters")
+                when(service.create(newPatient)).thenReturn(createdPatient);
+                MockHttpServletResponse response = mockMvc.perform(post("/patients")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(newHealthcenter))
+                                .content(mapper.writeValueAsString(newPatient))
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isCreated())
                                 .andReturn()
@@ -87,17 +85,17 @@ public class HealthcenterControllerTest {
 
                 assertThat(response.getStatus(), equalTo(201));
                 assertThat(response.getContentAsString(), containsString("Andres"));
-                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(createdHealthcenter)));
+                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(createdPatient)));
         }
 
         @Test
-        @DisplayName("Should return a healthcenter by ID")
-        void testGetHealthcenterById() throws Exception {
+        @DisplayName("Should return a patient by ID")
+        void testGetPatientById() throws Exception {
 
-                Healthcenter pablo = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+                Patient pablo = new Patient(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
 
                 when(service.getById(1L)).thenReturn(pablo);
-                MockHttpServletResponse response = mockMvc.perform(get("/healthcenters/1")
+                MockHttpServletResponse response = mockMvc.perform(get("/patients/1")
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk())
                                 .andReturn()
@@ -111,16 +109,16 @@ public class HealthcenterControllerTest {
         }
 
         @Test
-        @DisplayName("Should update an existing healthcenter")
+        @DisplayName("Should update an existing patient")
         void testUpdate() throws Exception {
 
-                Healthcenter updatedHealthcenter = new Healthcenter(1L, "Pablo Updated", "2024/01/01",
-                                "Test Subject Updated", "Test Description Updated");
+                Patient updatedPatient = new Patient(1L, "Pablo Updated", "2024/01/01", "Test Subject Updated",
+                                "Test Description Updated");
 
-                when(service.update(1L, updatedHealthcenter)).thenReturn(updatedHealthcenter);
-                MockHttpServletResponse response = mockMvc.perform(put("/healthcenters/1")
+                when(service.update(1L, updatedPatient)).thenReturn(updatedPatient);
+                MockHttpServletResponse response = mockMvc.perform(put("/patients/1")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(updatedHealthcenter))
+                                .content(mapper.writeValueAsString(updatedPatient))
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk())
                                 .andReturn()
@@ -130,15 +128,15 @@ public class HealthcenterControllerTest {
 
                 assertThat(response.getStatus(), equalTo(200));
                 assertThat(response.getContentAsString(), containsString("Pablo Updated"));
-                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(updatedHealthcenter)));
+                assertThat(response.getContentAsString(), equalTo(mapper.writeValueAsString(updatedPatient)));
         }
 
         @Test
-        @DisplayName("Should delete an existing healthcenter")
+        @DisplayName("Should delete an existing patient")
         void testDelete() throws Exception {
 
                 when(service.delete(1L)).thenReturn(true);
-                MockHttpServletResponse response = mockMvc.perform(delete("/healthcenters/1")
+                MockHttpServletResponse response = mockMvc.perform(delete("/patients/1")
                                 .accept(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isNoContent())
                                 .andReturn()

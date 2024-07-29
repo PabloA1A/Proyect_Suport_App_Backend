@@ -19,30 +19,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import dev.pablo.Project_Support_App_Backend.models.Healthcenter;
-import dev.pablo.Project_Support_App_Backend.repositories.HealthcenterRepository;
+import dev.pablo.Project_Support_App_Backend.models.Patient;
+import dev.pablo.Project_Support_App_Backend.repositories.PatientRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class HealthcenterServiceTest {
+public class PatientServiceTest {
 
     @InjectMocks
-    HealthcenterService service;
+    PatientService service;
 
     @Mock
-    HealthcenterRepository repository;
+    PatientRepository repository;
 
     @Test
-    @DisplayName("Should return a list of all healthcenters")
+    @DisplayName("Should return a list of all patients")
     void testGetAll() {
 
-        List<Healthcenter> healthcenters = new ArrayList<>();
-        Healthcenter pablo = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
-        Healthcenter maria = new Healthcenter(2L, "Maria", "2024/02/02", "Test Subject", "Test Description");
-        healthcenters.add(pablo);
-        healthcenters.add(maria);
+        List<Patient> patients = new ArrayList<>();
+        Patient pablo = new Patient(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+        Patient maria = new Patient(2L, "Maria", "2024/02/02", "Test Subject", "Test Description");
+        patients.add(pablo);
+        patients.add(maria);
 
-        when(repository.findAll()).thenReturn(healthcenters);
-        List<Healthcenter> result = service.getAll();
+        when(repository.findAll()).thenReturn(patients);
+        List<Patient> result = service.getAll();
 
         assertThat(result.size(), equalTo(2));
         assertThat(result.get(0).getName(), equalTo(pablo.getName()));
@@ -50,43 +50,42 @@ public class HealthcenterServiceTest {
     }
 
     @Test
-    @DisplayName("Should create a new healthcenter")
+    @DisplayName("Should create a new patient")
     void testCreate() {
 
-        Healthcenter newHealthcenter = new Healthcenter(null, "Pablo", "2024/01/01", "Test Subject",
-                "Test Description");
-        Healthcenter savedHealthcenter = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject",
-                "Test Description");
+        Patient newPatient = new Patient(null, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+        Patient savedPatient = new Patient(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
 
-        when(repository.save(any(Healthcenter.class))).thenReturn(savedHealthcenter);
-        Healthcenter result = service.create(newHealthcenter);
+        when(repository.save(any(Patient.class))).thenReturn(savedPatient);
+        Patient result = service.create(newPatient);
 
         assertThat(result.getId(), equalTo(1L));
         assertThat(result.getName(), equalTo("Pablo"));
     }
 
     @Test
-    @DisplayName("Should return a healthcenter by ID")
+    @DisplayName("Should return a patient by ID")
     void testGetById() {
 
-        Healthcenter pablo = new Healthcenter(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
+        Patient pablo = new Patient(1L, "Pablo", "2024/01/01", "Test Subject", "Test Description");
 
         when(repository.findById(1L)).thenReturn(Optional.of(pablo));
-        Healthcenter result = service.getById(1L);
+        Patient result = service.getById(1L);
 
         assertThat(result.getId(), equalTo(1L));
         assertThat(result.getName(), equalTo("Pablo"));
     }
 
     @Test
-    @DisplayName("Should update an existing healthcenter")
+    @DisplayName("Should update an existing patient")
     void testUpdate() {
 
-        Healthcenter updatedHealthcenter = new Healthcenter(1L, "Pablo Updated", "2024/01/01", "Test Subject Updated", "Test Description Updated");
+        Patient updatedPatient = new Patient(1L, "Pablo Updated", "2024/01/01", "Test Subject Updated",
+                "Test Description Updated");
 
         when(repository.existsById(1L)).thenReturn(true);
-        when(repository.save(any(Healthcenter.class))).thenReturn(updatedHealthcenter);
-        Healthcenter result = service.update(1L, updatedHealthcenter);
+        when(repository.save(any(Patient.class))).thenReturn(updatedPatient);
+        Patient result = service.update(1L, updatedPatient);
 
         assertThat(result.getId(), equalTo(1L));
         assertThat(result.getName(), equalTo("Pablo Updated"));
@@ -94,20 +93,20 @@ public class HealthcenterServiceTest {
     }
 
     @Test
-    @DisplayName("Should return null when updating a non-existing healthcenter")
+    @DisplayName("Should return null when updating a non-existing patient")
     void testUpdateNonExisting() {
 
-        Healthcenter updatedHealthcenter = new Healthcenter(1L, "Pablo Updated", "2024/01/01", "Test Subject Updated",
+        Patient updatedPatient = new Patient(1L, "Pablo Updated", "2024/01/01", "Test Subject Updated",
                 "Test Description Updated");
 
         when(repository.existsById(1L)).thenReturn(false);
-        Healthcenter result = service.update(1L, updatedHealthcenter);
+        Patient result = service.update(1L, updatedPatient);
 
         assertThat(result, equalTo(null));
     }
 
     @Test
-    @DisplayName("Should delete an existing healthcenter")
+    @DisplayName("Should delete an existing patient")
     void testDelete() {
 
         when(repository.existsById(1L)).thenReturn(true);
@@ -120,7 +119,7 @@ public class HealthcenterServiceTest {
     }
 
     @Test
-    @DisplayName("Should return false when deleting a non-existing healthcenter")
+    @DisplayName("Should return false when deleting a non-existing patient")
     void testDeleteNonExisting() {
 
         when(repository.existsById(1L)).thenReturn(false);

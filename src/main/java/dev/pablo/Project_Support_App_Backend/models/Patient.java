@@ -10,27 +10,57 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "healthcenters")
-public class Healthcenter {
+@Table(name = "patients")
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_healthcenter")
+    @Column(name = "id_patient")
     private Long id;
     private String name;
     private String date;
     private String subject;
     private String description;
 
-    public Healthcenter() {
+    public Patient() {
     }
 
-    public Healthcenter(Long id, String name, String date, String subject, String description) {
+    public Patient(Long id, String name, String date, String subject, String description) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.subject = subject;
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Patient that = (Patient) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(subject, that.subject) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, date, subject, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", subject='" + subject + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 
     public Long getId() {
@@ -73,31 +103,4 @@ public class Healthcenter {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Healthcenter that = (Healthcenter) o;
-        return Objects.equals(id, that.id) && 
-               Objects.equals(name, that.name) && 
-               Objects.equals(date, that.date) && 
-               Objects.equals(subject, that.subject) && 
-               Objects.equals(description, that.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, date, subject, description);
-    }
-
-    @Override
-    public String toString() {
-        return "Healthcenter{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", subject='" + subject + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

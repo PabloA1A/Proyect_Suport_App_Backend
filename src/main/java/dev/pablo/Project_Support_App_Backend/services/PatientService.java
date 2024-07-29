@@ -5,31 +5,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.pablo.Project_Support_App_Backend.models.Healthcenter;
-import dev.pablo.Project_Support_App_Backend.repositories.HealthcenterRepository;
+import dev.pablo.Project_Support_App_Backend.models.Patient;
+import dev.pablo.Project_Support_App_Backend.repositories.PatientRepository;
 
 @Service
-public class HealthcenterService {
+public class PatientService {
 
     @Autowired
-    private HealthcenterRepository repository;
+    private PatientRepository repository;
 
-    public List<Healthcenter> getAll() {
+    public List<Patient> getAll() {
         return repository.findAll();
     }
 
-    public Healthcenter create(Healthcenter healthcenter) {
-        return repository.save(healthcenter);
+    public Patient create(Patient patient) {
+        return repository.save(patient);
     }
 
-    public Healthcenter getById(Long id) {
+    public Patient getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public Healthcenter update(Long id, Healthcenter healthcenter) {
+    public Patient update(Long id, Patient patient) {
         if (repository.existsById(id)) {
-            healthcenter.setId(id);
-            return repository.save(healthcenter);
+            patient.setId(id);
+            return repository.save(patient);
         } else {
             return null;
         }
