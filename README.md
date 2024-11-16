@@ -1,66 +1,61 @@
-# Project_Support_App_Frontend
+# Project Support App Backend
 
-## Project Setup
+## Descripción
+Este proyecto es el backend de la aplicación Project Support App, diseñada para gestionar solicitudes y proporcionar soporte a los usuarios. La aplicación es completamente responsiva y está construida utilizando tecnologías modernas.
+
+## Tecnologías
+
+- **Frontend**: Vue, SCSS (Opcional: Framework CSS)
+- **Backend**: Java
+- **Bases de Datos**: MySQL
+
+## Requisitos
+
+- Java 11 o superior
+- Maven 3.6.3 o superior
+- MySQL 5.7 o superior
+
+## Instalación
+
+1. Clona el repositorio:
+    ```sh
+    git clone https://github.com/PabloA1A/Project_Support_App_Backend.git
+    ```
+2. Navega al directorio del proyecto:
+    ```sh
+    cd Project_Support_App_Backend
+    ```
+3. Configura la base de datos en `src/main/resources/application.properties`.
+4. Compila y ejecuta el proyecto con Maven:
+    ```sh
+    ./mvnw spring-boot:run
+    ```
+
+## Uso
+
+1. Accede a la aplicación en `http://localhost:8080`.
+2. Utiliza las diferentes rutas y endpoints para gestionar las solicitudes.
+
+## Pruebas
+
+Para ejecutar las pruebas, utiliza el siguiente comando:
 ```sh
-Spring boot
+./mvnw test
 ```
-## Run Unit Tests with 
-```sh
-spring-boot-starter-test and hamcrest
-```
-# Support App - My first CRUD
 
-A startup has asked us for a web platform so that their employees can request technical support from their IT department in case of need.
+## Repositorio del Frontend
 
-## Project Context
+El repositorio del frontend se encuentra en el siguiente enlace: [Project Support App Frontend](https://github.com/PabloA1A/Project_Support_App_Frontend)
 
-Develop a basic MVP so that employees can make their queries and these are recorded in a MySQL database. The software will be an object oriented application.
+## Autor
 
-### Minimum requirements:
-Page 1: Welcome view with your login.
-Page 2: List of requests
-Page 3: Form to request support
-Page 4: Editing a request
-
-#### Login:
-Users will be preloaded in the database with their username and password (no need to encrypt the password in the database).
-
-#### Content of the request:
-Name of the applicant
-Date of request
-Subject of the request
-Description of the request
-
-#### List of applications:
-Must be listed in order of creation
-
-#### New appointment:
-All form fields are required
-Button to reset the fields
-Button to cancel creation and return to list view
-Button to validate the request
-
-#### Editing a request already registered:
-All fields in the form are mandatory
-The fields must contain the current information
-Button to cancel the edition
-Button to send the changes made
-
-The application must be fully responsive.
-
-## Technologies: 
-Frontend: Vue, SCSS - Optional: CSS Framework.
-Backend: JAVA.
-Databases: MySQL
-
-## Repository with the frontend:
-```sh
-https://github.com/PabloA1A/Project_Support_App_Frontend
-```
-### AUTHOR:
-```sh
 Pablo Abad
-```
 
-## My diagram with https://app.diagrams.net/:
-![My diagram](<Diagrama  Project_Support_App_Backend.png>)
+## Licencia
+Este proyecto está licenciado bajo los términos de la licencia MIT. Para más detalles, consulta el archivo LICENSE.
+
+### Contacto
+
+Para cualquier consulta o sugerencia, por favor contacta a pablo_abadalvarez@hotmail.es
+
+¡Gracias por usar Project Support App! Esperamos que disfrutes de la aplicación.
