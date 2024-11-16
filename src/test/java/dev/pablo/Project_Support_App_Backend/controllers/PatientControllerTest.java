@@ -16,6 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -28,7 +29,7 @@ import dev.pablo.Project_Support_App_Backend.models.Patient;
 import dev.pablo.Project_Support_App_Backend.services.PatientService;
 
 @WebMvcTest(PatientController.class)
-// @AutoConfigureMockMvc(addFilters = false) to disable security
+@AutoConfigureMockMvc(addFilters = false)
 public class PatientControllerTest {
 
         @Autowired

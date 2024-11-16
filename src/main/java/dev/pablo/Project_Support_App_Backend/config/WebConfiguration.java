@@ -17,5 +17,4 @@ public class WebConfiguration implements WebMvcConfigurer {
             .allowedOrigins("*")
             .allowedMethods("GET","POST","PUT","DELETE");
     }
-
 }
